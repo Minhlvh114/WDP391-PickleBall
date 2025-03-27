@@ -57,7 +57,7 @@ export default function DashboardAppPage() {
 
       <Container maxWidth="xl">
         <Typography variant="h4" sx={{ mb: 5 }}>
-          Hi {user.name.split(' ')[0]}, Welcome back
+          Hi {user.name}, Welcome back
         </Typography>
 
         <Grid container spacing={3}>

@@ -27,27 +27,16 @@ const CourtForm = ({
   isUpdateForm,
   isModalOpen,
   handleCloseModal,
-  book,
+  Court,
   setCourt,
   handleAddCourt,
   handleUpdateCourt
 }) => {
 
-  const [isModalLoading, setIsModalLoading] = useState(true)
-
-
-
-
-  const parsePageUrls = (pageUrlsString) => {
-    // check string before split 
-    if (typeof pageUrlsString === 'string') {
-      return pageUrlsString.split(';').map(url => url.trim());
-    }
-    return [];
-  };
+  const [isModalLoading, setIsModalLoading] = useState(false);
 
   const handleSubmit = () => {
-    const payload = { ...book, pageUrls: book.pageUrls };
+    const payload = { ...Court };
 
     console.log("Payload:", payload);
 
@@ -57,14 +46,6 @@ const CourtForm = ({
       handleAddCourt(payload);
     }
   };
-
-
-  const handlePageUrlsChange = (event) => {
-    const pageUrlsString = event.target.value;
-    const pageUrlsArray = parsePageUrls(pageUrlsString);
-    setCourt({ ...book, pageUrls: pageUrlsArray });
-  };
-
 
   const style = {
     position: 'absolute',
@@ -78,7 +59,6 @@ const CourtForm = ({
     p: 2,
   };
 
-
   return (
     <Modal
       open={isModalOpen}
@@ -89,7 +69,7 @@ const CourtForm = ({
       <Box sx={style}>
         <Container>
           <Typography variant="h4" textAlign="center" paddingBottom={2} paddingTop={1}>
-            {isUpdateForm ? <span>Update</span> : <span>Add</span>} book
+            {isUpdateForm ? <span>Update</span> : <span>Add</span>} court
           </Typography>
 
           {
@@ -98,66 +78,30 @@ const CourtForm = ({
                 height="600px"
                 overflow="scroll">
 
-                <TextField name="name" label="Court name" value={book.name} autoFocus required
-                  onChange={(e) => setCourt({ ...book, name: e.target.value })} />
-                <TextField name="isbn" label="ISBN" value={book.isbn} required
-                  onChange={(e) => setCourt({ ...book, isbn: e.target.value })} />
-                <TextField name="position" label="Court position" value={book.position} autoFocus required
-                  onChange={(e) => setCourt({ ...book, position: e.target.value })} />
+                <TextField name="court_name" label="Court name" value={Court.court_name} autoFocus required
+                  onChange={(e) => setCourt({ ...Court, court_name: e.target.value })} />
 
+                <TextField name="price" label="Price" value={Court.price} required
+                  onChange={(e) => setCourt({ ...Court, price: e.target.value })} />
+
+                <TextField name="court_photo" label="Court photo URL" value={Court.court_photo} required
+                  onChange={(e) => setCourt({ ...Court, court_photo: e.target.value })} />
 
                 <FormControl>
-                  <FormLabel id="available-label">Availability</FormLabel>
+                  <FormLabel id="status-label">Status</FormLabel>
                   <RadioGroup
-                    aria-labelledby="available-label"
-                    defaultValue={book.isAvailable}
+                    aria-labelledby="status-label"
+                    defaultValue={Court.status}
                     name="radio-buttons-group"
-                    onChange={(e) => setCourt({ ...book, isAvailable: e.target.value })}
+                    onChange={(e) => setCourt({ ...Court, status: e.target.value })}
                   >
-                    <FormControlLabel value control={<Radio />} label="Available" />
-                    <FormControlLabel value={false} control={<Radio />} label="Not available" />
+                    <FormControlLabel value="A" control={<Radio />} label="Available" />
+                    <FormControlLabel value="B" control={<Radio />} label="Not available" />
                   </RadioGroup>
                 </FormControl>
 
-                <TextField name="summary" label="Summary" value={book.summary} multiline
-                  rows={2}
-                  maxRows={4}
-                  onChange={(e) => setCourt({ ...book, summary: e.target.value })}
-                />
-
-                {/* <Button
-                  size="large"
-                  variant="outlined"
-                  component="label"
-                  color="info"
-                >
-                  Upload photo
-                  <input
-                    type="file"
-                    accept="image/jpeg, image/png"
-                    hidden
-                  />
-                </Button> */}
-
-                <TextField name="photoURL" label="photoURL" value={book.photoUrl} required
-                  onChange={(e) => setCourt({ ...book, photoUrl: e.target.value })} />
-
-                {/* <TextField name="pageUrls" label="pageUrls" value={book.pageUrls} required
-                  onChange={(e) => setCourt({ ...book, pageUrls: e.target.value })} /> */}
-
-                <TextField
-                  name="pageUrls"
-                  label="Page URLs (semicolon separated)"
-                  value={book.pageUrls.join('; ')}
-                  required
-                  onChange={handlePageUrlsChange}
-                />
-                <pre>{JSON.stringify(book.pageUrls, null, 2)}</pre>
-                <br />
-
                 <Box textAlign="center" paddingBottom={2}>
                   <Button size="large" variant="contained"
-                    // onClick={isUpdateForm ? handleUpdateCourt : handleAddCourt}
                     onClick={handleSubmit}
                     startIcon={<Iconify icon="bi:check-lg" />} style={{ marginRight: "12px" }}>
                     Submit
@@ -180,10 +124,10 @@ CourtForm.propTypes = {
   isUpdateForm: PropTypes.bool,
   isModalOpen: PropTypes.bool,
   handleCloseModal: PropTypes.func,
-  book: PropTypes.object,
+  court: PropTypes.object,
   setCourt: PropTypes.func,
   handleAddCourt: PropTypes.func,
   handleUpdateCourt: PropTypes.func,
 };
 
-export default CourtForm
+export default CourtForm;

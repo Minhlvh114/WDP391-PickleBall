@@ -8,6 +8,7 @@ import {bgBlur} from '../../../utils/cssStyles';
 import Iconify from '../../../components/iconify';
 //
 import AccountPopover from './AccountPopover';
+import NotificationsPopover from './NotificationsPopover';
 
 // ----------------------------------------------------------------------
 
@@ -61,10 +62,11 @@ export default function Header({ onOpenNav }) {
           direction="row"
           alignItems="center"
           spacing={{
-            xs: 0.5,
-            sm: 1,
+            xs: 2,
+            sm: 3,
           }}
         >
+          <NotificationsPopover />
           <AccountPopover />
         </Stack>
       </StyledToolbar>

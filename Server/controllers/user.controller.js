@@ -7,15 +7,13 @@ const getUser = async (req, res) => {
     const userId = req.params.id;
     console.log('User ID:', userId);
 
-
-
     try {
           // Validate ObjectId
           console.log('User ID:', userId);
         // if (!mongoose.Types.ObjectId.isValid(userId)) {
         //   return res.status(400).json({ success: false, message: 'Invalid user ID' });
         // }
-        const user = await User.findById(userId);
+        const user = await User.findById(userId).select('-password');
 
         if (!user) {
             return res.status(404).json({ success: false, message: 'User not found' });
@@ -50,23 +48,29 @@ const updateUser = async (req, res) => {
   const userId = req.params.id;
   const updatedData = req.body;
   
+  console.log('Updating user:', userId);
+  console.log('Updated data:', updatedData);
   
   try {
-    const user = await User.findById(userId);
-    if (!user) {
+    // Sử dụng findByIdAndUpdate với { new: true, runValidators: false } 
+    // để tránh validation cho toàn bộ document
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      updatedData,
+      { 
+        new: true,       // Trả về document đã cập nhật
+        runValidators: false  // Không chạy validation cho những field không cập nhật
+      }
+    );
+
+    if (!updatedUser) {
       return res.status(404).json({ success: false, message: 'User not found' });
     }
 
-    await Object.assign(user, updatedData);
-    console.log(Object.assign(user, updatedData));
-    // if (updatedData.password) {
-    //   user.setPassword(updatedData.password);
-    // }
-    await user.save();
-
-    return res.status(200).json({ success: true, user });
+    return res.status(200).json({ success: true, user: updatedUser });
   } catch (err) {
-    return res.status(400).json({ success: false, err });
+    console.error('Error updating user:', err);
+    return res.status(400).json({ success: false, message: 'Failed to update user', error: err.message });
   }
 };
 
@@ -108,13 +112,46 @@ const changePassword = async (req, res) => {
   }
 };
 
+// Thêm phương thức tạo user mới
+const addUser = async (req, res) => {
+  try {
+    const userData = req.body;
+    console.log('Creating new user with data:', userData);
+    
+    // Tạo user mới
+    const newUser = new User(userData);
+    
+    // Nếu có password, set password
+    if (userData.password) {
+      newUser.setPassword(userData.password);
+    }
+    
+    // Lưu user mới
+    await newUser.save();
+    
+    return res.status(201).json({ 
+      success: true, 
+      message: 'User created successfully',
+      user: newUser 
+    });
+  } catch (err) {
+    console.error('Error creating user:', err);
+    return res.status(400).json({ 
+      success: false, 
+      message: 'Failed to create user', 
+      error: err.message 
+    });
+  }
+};
+
 const userController = {
   getUser,
   getAllUsers,
   getAllMembers,
   updateUser,
   deleteUser,
-  changePassword
+  changePassword,
+  addUser
 };
 
 module.exports = userController;

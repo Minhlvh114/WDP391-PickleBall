@@ -20,7 +20,7 @@ const Logo = forwardRef(({disabledLink = false, sx, ...other}, ref) => {
       }}
       {...other}
     >
-      <img src="/assets/logopickleball.svg" alt="Logo" width="40%"/>
+      <img src="/assets/logopickleball.svg" alt="Logo" width="50%"/>
     </Box>
   );
 
@@ -29,7 +29,6 @@ const Logo = forwardRef(({disabledLink = false, sx, ...other}, ref) => {
   }
 
   return (
-    
     <Link to="/" component={RouterLink} sx={{display: 'contents'}}>
       {logo}
     </Link>

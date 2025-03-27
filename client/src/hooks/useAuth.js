@@ -6,23 +6,15 @@ import { useLocalStorage } from './useLocalStorage';
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useLocalStorage('user', null);
-  // const [user, setUser] = useLocalStorage('user', {isAdmin: true});
-  // const [user, setUser] = useLocalStorage('user', {
-  //   name: 'trung',
-  //   email: 'lol@gmail.com',
-  //   phone: '09123314523',
-  //   isAdmin: false,
-  //   isLibrian: false,
-  //   firstLogin: false,
-  // });
+  // const [user, setUser] = useLocalStorage('user', null);
+  const [user, setUser] = useLocalStorage('user', {isAdmin: true});
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (user && user.firstLogin) {
-  //     navigate('/change-password', { replace: true });
-  //   }
-  // }, [user, navigate]);
+  useEffect(() => {
+    if (user && user.firstLogin) {
+      navigate('/change-password', { replace: true });
+    }
+  }, [user, navigate]);
 
   const login = useCallback(
     async (data) => {

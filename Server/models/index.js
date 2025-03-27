@@ -1,17 +1,22 @@
 const mongoose = require("mongoose");
 const Court = require("./court.model");
-const Bill = require("./bill.model");
 const User  = require("./user.model")
-
-
+const Feedback = require("./feedback.model")
+const Bill = require("./bill.model");
+const Borrower = require("./borrower.model");
+const Notification = require("./notification.model");
 
 mongoose.Promise = global.Promise;
 
 const db = {};
 db.mongoose = mongoose;
 db.court = Court;
+db.User = User;
+db.Feedback = Feedback
 db.bill = Bill;
-db.user = User;
+db.borrower = Borrower
+db.Notification = Notification
+
 
 db.connectDB = async () => {
   try {

@@ -1,15 +1,21 @@
-import { FiBookOpen, FiCheckCircle, FiHome, FiList, FiLock, FiUsers, FiFile, FiDollarSign } from 'react-icons/fi';
+import { FiBookOpen, FiCheckCircle, FiHome, FiList, FiLock, FiUsers, FiFile, FiDollarSign, FiLayout, FiCalendar } from 'react-icons/fi';
 
 const navConfig = [
   {
-    title: 'Dashboard',
-    path: '/dashboard',
-    icon: <FiHome />,
+    title: 'User Management',
+    path: '/usermanagement',
+    icon: <FiUsers />,
+    adminOnly: true, // Add this flag to indicate this route is for admins only
   },
   {
     title: 'Courts',
     path: '/courts',
-    icon: <FiBookOpen />,
+    icon: <FiLayout  />,
+  },
+  {
+    title: 'Booking',
+    path: '/booking-history',
+    icon: <FiCalendar />,
   },
   // {
   //   title: 'Authors',

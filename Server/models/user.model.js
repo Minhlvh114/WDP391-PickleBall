@@ -5,11 +5,12 @@ const userSchema = new mongoose.Schema(
     email: { type: String, required: true, unique: true },
     phone: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    name: { type: String, required: true },
+    name: { type: String, required: true ,minlength: 3, maxlength: 30},
     isAdmin: { type: Boolean, required: true, default: false },
     // photo_url: { type: String, required: false, nullable: true },
     dob: { type: Date, default: null },
-  
+    status: { type: String, enum: ['active', 'inactive'], default: 'active' }, // Added status field
+
     lastLoginDate: { type: Date, default: Date.now },
     isVerified: { type: Boolean, default: false },
     verificationToken: { type: String },

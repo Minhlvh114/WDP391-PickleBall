@@ -1,2 +1,6 @@
-# WDP391-PickleBall
-WDP391-PickleBall
+# Pickleball Court Rental System
+
+# backend run command - 2 bash
+
+- npm run dev
+- maildev

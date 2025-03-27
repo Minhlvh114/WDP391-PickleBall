@@ -6,6 +6,7 @@ import { styled } from "@mui/material/styles";
 import Header from "./header";
 import Nav from "./nav";
 import { useAuth } from "../../hooks/useAuth";
+import { useAuthStore } from "../../store/authStore";
 
 // ----------------------------------------------------------------------
 
@@ -35,11 +36,7 @@ const Main = styled('div')(({ theme }) => ({
 
 export default function LibraryApp() {
   const [open, setOpen] = useState(false);
-  const {user} = useAuth();
-
-  // if (user==null) {
-  //   return <Navigate to={'/landing-page'} replace/>
-  // }
+  const {user} = useAuthStore();
 
   // if (!user) {
   //   return <Navigate to={'/login'} replace/>

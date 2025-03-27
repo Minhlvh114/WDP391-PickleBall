@@ -1,22 +1,9 @@
 const mongoose = require("mongoose")
 
 const billSchema = new mongoose.Schema({
-  retal_price: {
+  amount_price: {
     type: Number,
     required: true
-  },
-  time_rental: {
-    type: String,
-    required: false
-  },
-  end_time_rental: {
-    type: String,
-    required: false
-  },
-  court_id: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Court',
-    required: false
   },
   user_id: {
     type: mongoose.Schema.Types.ObjectId,
@@ -25,11 +12,11 @@ const billSchema = new mongoose.Schema({
   },
   counter_account_name: {
     type: String,
-    required: true
+    required: false
   },
   counter_account_number: {
     type: String,
-    required: true
+    required: false
   },
   order_code_pay_os: {
     type: Number,
@@ -38,6 +25,8 @@ const billSchema = new mongoose.Schema({
   },
   status: {
     type: String,
+    enum: ['PAID', 'PENDING', 'CANCEL'],
+    default: 'PENDING',
     required: true,
   },
   transaction_bank_time: {
@@ -47,7 +36,6 @@ const billSchema = new mongoose.Schema({
   reference_bank: {
     type: String,
     required: false,
-    unique:true
   },
 
 },{

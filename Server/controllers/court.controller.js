@@ -75,11 +75,12 @@ const getAllCourts = async (req, res, next) => {
 const addCourt = async (req, res, next) => {
   try {
     const newCourtData = {
-      court_name : req.body.courtName,
+      court_name: req.body.courtName,
       price: req.body.price,
-      courts_photo: req.body.photoUrl,
-      // pageUrls: req.body.pageUrls || [],
+      court_photo: req.body.photoUrl,
       status: req.body.status || "active",
+      description: req.body.description || "",
+      opening_hours: req.body.opening_hours || "06:00 - 22:00"
     };
 
     console.log(newCourtData);
@@ -110,7 +111,6 @@ const addCourt = async (req, res, next) => {
     return next(err);
   }
 };
-
 
 const updateCourt = async (req, res, next) => {
   try {

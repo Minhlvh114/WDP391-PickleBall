@@ -1,4 +1,4 @@
-import React from "react";
+import React, { use } from "react";
 // import "tachyons";
 import { Heading, Text } from "rebass"; // Chỉ import Heading và Text từ rebass
 import {
@@ -8,12 +8,12 @@ import {
   ScrollDownIndicator
 } from "react-landing-page";
 import { Link } from 'react-router-dom';
+import { useAuthStore } from "../store/authStore";
 
 
 const LandingPage = () => {
   
-
-  
+  const { user } = useAuthStore()
   
 
   return (
@@ -32,7 +32,11 @@ const LandingPage = () => {
           <Link to={`/courts`} style={{ textDecoration: 'none', color: 'inherit' }}>  View More </Link>
         </CallToAction>
         <CallToAction>
-            <Link to={`/login`} style={{ textDecoration: 'none', color: 'inherit' }}>Login</Link>
+          {user == null ? 
+            <Link to={`/login`} style={{ textDecoration: 'none', color: 'inherit' }}>Login</Link> :
+            <Link to={`/courts`} style={{ textDecoration: 'none', color: 'inherit' }}>Back</Link>
+          }
+            
         </CallToAction>
       </Flex>
       <ScrollDownIndicator />

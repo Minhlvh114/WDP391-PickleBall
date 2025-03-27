@@ -1,7 +1,7 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import PropTypes from "prop-types";
 
-const CourtDialog = ({isDialogOpen, handleCloseDialog, bookId, handleDeleteCourt}) =>
+const CourtDialog = ({isDialogOpen, handleCloseDialog, courtId, handleDeleteCourt}) =>
     <Dialog
       open={isDialogOpen}
       onClose={handleCloseDialog}
@@ -13,12 +13,12 @@ const CourtDialog = ({isDialogOpen, handleCloseDialog, bookId, handleDeleteCourt
       </DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
-          Are you sure you want to delete this book?
+          Are you sure you want to delete this court?
         </DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleCloseDialog}>No</Button>
-        <Button onClick={() => handleDeleteCourt(bookId)} autoFocus>
+        <Button onClick={() => handleDeleteCourt(courtId)} autoFocus>
           Yes
         </Button>
       </DialogActions>
@@ -27,7 +27,7 @@ const CourtDialog = ({isDialogOpen, handleCloseDialog, bookId, handleDeleteCourt
 CourtDialog.propTypes = {
   isDialogOpen: PropTypes.bool,
   handleCloseDialog: PropTypes.func,
-  bookId: PropTypes.string,
+  courtId: PropTypes.string,
   handleDeleteCourt: PropTypes.func
 };
 
